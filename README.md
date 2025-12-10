@@ -77,15 +77,15 @@ One of the primary responsibilities of the Work Loop is managing interruptions. 
 **Example Scenario**
 
 
-1.React begins rendering a large list in a transition lane.
+1. React begins rendering a large list in a transition lane.
 
-2.The user types into an input field (SyncLane event).
+2. The user types into an input field (SyncLane event).
 
-3.The Work Loop:
--Immediately yields control,
--Switches to the synchronous loop for the input update,
--Completes the urgent work,
--Returns to the paused list rendering afterward.
+3. The Work Loop:
+   - Immediately yields control,
+   - Switches to the synchronous loop for the input update,
+   - Completes the urgent work,
+   - Returns to the paused list rendering afterward.
 
 This system preserves responsiveness without sacrificing rendering completeness.
 
