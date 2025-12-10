@@ -25,3 +25,48 @@ function workLoopConcurrent() {
 }
 
 ```
+The synchronous version, however, cannot be interrupted. It processes all work in a single continuous run without checking for deadlines:
+
+```js
+
+function workLoopSync() {
+  while (workInProgress !== null) {
+    workInProgress = performUnitOfWork(workInProgress);
+  }
+}
+
+```
+React decides between these two modes based on the lane assigned to the update. Higher-priority lanes (e.g., user input) trigger the synchronous loop, whereas lower-priority or transition-based lanes default to the concurrent loop.
+
+
+====================================================================================
+
+# Relationship Between Lanes and the Work Loop
+
+**Lanes represent React's priority system. Each update is assigned a lane, and the Work Loop uses this priority to determine:**
+
+- Whether rendering is interruptible,
+
+- Whether a higher priority update preempts the current one,
+
+- When suspended work should be retried,
+
+- which Fiber subtree React should focus on first.
+- ---------------------------------------------------------
+
+A simplified representation of lane-based scheduling might appear as:
+```js
+
+if (lane === SyncLane) {
+  workLoopSync();
+} else {
+  workLoopConcurrent();
+}
+
+```
+
+This integration ensures that urgent updates,such as text input or form interactions complete reliably without being delayed by background work.
+
+
+-----------------------------------------------------------------------------
+ 
