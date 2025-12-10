@@ -75,17 +75,17 @@ This integration ensures that urgent updates,such as text input or form interact
 One of the primary responsibilities of the Work Loop is managing interruptions. If React is rendering a low-priority update and a higher-priority update arrives, the Work Loop halts its current progress and switches to the new lane. Importantly, React resumes the interrupted work later from the exact Fiber where it paused, not from the root. This incremental execution model is enabled by Fiber’s linked structure.
 
 **Example Scenario**
+
+
 1.React begins rendering a large list in a transition lane.
 
 2.The user types into an input field (SyncLane event).
 
-3.The Work Loop: -Immediately yields control,
-
-                 -Switches to the synchronous loop for the input update,
-
-                 -Completes the urgent work,
-
-                 -Returns to the paused list rendering afterward.
+3.The Work Loop:
+-Immediately yields control,
+-Switches to the synchronous loop for the input update,
+-Completes the urgent work,
+-Returns to the paused list rendering afterward.
 
 This system preserves responsiveness without sacrificing rendering completeness.
 
