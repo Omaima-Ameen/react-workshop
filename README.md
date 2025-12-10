@@ -1,5 +1,5 @@
-## React Work Loop Internals
-**(Placed after the Concurrent Rendering section)**
+# React Work Loop Internals
+
 
 -----------------------------------------------------------
 
@@ -16,10 +16,12 @@ At the core of this system is the idea that rendering is broken into discrete st
 
 React maintains two distinct variants of the Work Loop: a Concurrent Work Loop and a Synchronous Work Loop. The concurrent version supports yielding and is used for most non-urgent updates. Its logic resembles the following structure:
 
-```md
+```js
+
 function workLoopConcurrent() {
   while (workInProgress !== null && !shouldYield()) {
     workInProgress = performUnitOfWork(workInProgress);
   }
 }
-```md
+
+```
